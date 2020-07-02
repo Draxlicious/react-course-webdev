@@ -1,35 +1,34 @@
 import React from 'react'
-import RecipeIngredient from './RecipeIngredientEdit'
 import RecipeIngredientEdit from './RecipeIngredientEdit'
 
-export default function RecipeEdit() {
+export default function RecipeEdit( {recipe }) {
     return (
         <div className="recipe-edit">
-            <div>
-                <button>&times;</button>
+            <div className="recipe-edit__remove-button-container">
+                <button className="btn recipe-edit__remove-button">&times;</button>
             </div>
-            <div>
-                <label htmlFor="name">Name</label>
-                <input type="text" name="name" id="name"/>
-                <label htmlFor="cookTime">Cook Time</label>
-                <input type="text" name="cookTime" id="cookTime"/>
-                <label htmlFor="servings">servings</label>
-                <input type="text" name="servings" min="1" id="servings"/>
-                <label htmlFor="instructions">Instructions</label>
-                <textarea name="instructions" id="instructions"/>
+            <div className="recipe-edit__details-grid">
+                <label htmlFor="name" className="recipe-edit__label">Name</label>
+                <input type="text" name="name" id="name" className="recipe-edit__input" value={recipe.name}/>
+                <label htmlFor="cookTime" className="recipe-edit__label">Cook Time</label>
+                <input type="text" name="cookTime" id="cookTime" className="recipe-edit__input" value={recipe.cookTime}/>
+                <label htmlFor="servings" className="recipe-edit__label">servings</label>
+                <input type="text" name="servings" min="1" id="servings" className="recipe-edit__input" value={recipe.servings}/>
+                <label htmlFor="instructions" className="recipe-edit__label">Instructions</label>
+                <textarea name="instructions" id="instructions" className="recipe-edit__input" value={recipe.instructions}/>
             </div>
             <br/>
-            <label>Ingredients</label>
-            <div>
+            <label className="recipe-edit__label">Ingredients</label>
+            <div className="recipe-edit__ingredient-grid">
                 <div>Name</div>
                 <div>Amount</div>
                 <div></div>
-                <RecipeIngredientEdit/>
-                <RecipeIngredientEdit/>
-                {/* Ingredient Compontents */}
+                {recipe.ingredients.map(ingredient =>(
+                    <RecipeIngredientEdit key={ingredient.id} ingredient={ingredient}/>
+                ))}
             </div>
-            <div>
-                <button>Add Ingredient</button>
+            <div className="recipe-edit__add-ingredient-btn-container">
+                <button className="btn btn--primary">Add Ingredient</button>
             </div>
         </div>
     )
